@@ -11,4 +11,5 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'reek'
+  gem 'cover_me'
 end
