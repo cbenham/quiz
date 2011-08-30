@@ -6,6 +6,7 @@ gem 'haml'
 
 group :development do
   gem 'rspec-rails'
+  gem 'churn'
 end
 
 group :test do

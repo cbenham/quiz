@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'churn'
 
 MINIMUM_ALLOWED_CODE_COVERAGE = 100
 
@@ -6,7 +7,7 @@ COVERAGE_DATA_LOCATION = File.join(Rails.root, 'coverage.data')
 COVERAGE_REPORT_LOCATION = File.join(Rails.root, 'tmp', 'coverage')
 
 desc 'Run all aspects required to be sure of a working code base'
-task :all => ['clean', 'reek:production', 'reek:spec', 'spec'] do
+task :all => ['clean', 'churn', 'reek:production', 'reek:spec', 'spec'] do
   configure_coverage
   generate_coverage_reports
 end
