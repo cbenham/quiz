@@ -27,7 +27,7 @@ def configure_coverage
     c.html_formatter.output_path = COVERAGE_REPORT_LOCATION
     c.file_pattern = [/(#{CoverMe.config.project.root}\/app\/.+\.rb)/i]
     c.at_exit = Proc.new do
-      puts "Coverage report can be found in: #{c.html_formatter.output_path}"
+      puts "\nCoverage report can be found in: #{c.html_formatter.output_path}"
       if BuildFailureFormatter.percent_of_code_covered < MINIMUM_ALLOWED_CODE_COVERAGE
         raise "Poor code coverage, expected: #{MINIMUM_ALLOWED_CODE_COVERAGE}% coverage but was: " +
                   "#{BuildFailureFormatter.percent_of_code_covered}% coverage"
