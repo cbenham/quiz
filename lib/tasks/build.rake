@@ -3,6 +3,7 @@ require 'fileutils'
 require 'churn'
 require 'flay_task'
 require 'flog'
+require 'open3'
 
 ENV['PERCENT_EXPECTED_COVERAGE'] = '100'
 CODE_DUPLICATION_TOLERANCE = 0
@@ -12,7 +13,8 @@ COVERAGE_DATA_LOCATION = File.join(Rails.root, 'coverage.data')
 COVERAGE_REPORT_LOCATION = File.join(Rails.root, 'tmp', 'coverage')
 
 desc 'Run all aspects required to be sure of a working code base'
-task :all => ['clean', 'flay', 'flog', 'reek:production', 'reek:spec', 'churn', 'enable_simplecov', 'spec']
+task :all => ['clean', 'flay', 'flog', 'rails_best_practices', 'reek:production', 'reek:spec', 'churn',
+              'enable_simplecov', 'spec']
 
 namespace :reek do
   {:production => 'app', :spec => 'spec'}.each do |env, dir|
@@ -28,7 +30,6 @@ desc 'Analyze for code duplication'
 task :flay do
   FlayTask.new do |t|
     t.threshold = CODE_DUPLICATION_TOLERANCE
-    t.verbose = true
     t.dirs = %w(app)
   end
 end
@@ -49,6 +50,13 @@ task :flog do
 end
 
 task(:enable_simplecov) { ENV['COVERAGE'] = 'true' }
+
+task :rails_best_practices do
+  Open3.popen3('rails_best_practices') do |stdin, stdout, stderr, wait_thr|
+    out = stdout.readlines
+    raise out.join unless wait_thr.value == 0
+  end
+end
 
 desc 'Clean up after having run a build'
 task :clean do

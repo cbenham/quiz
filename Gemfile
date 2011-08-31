@@ -15,4 +15,5 @@ group :test do
   gem 'simplecov', '>= 0.4.0', :require => false
   gem 'flay'
   gem 'flog'
+  gem 'rails_best_practices'
 end
