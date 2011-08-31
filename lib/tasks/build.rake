@@ -31,7 +31,7 @@ end
 
 desc 'Analyze for code duplication'
 task :flay do
-  banner 'Flay code duplication detector'
+  banner 'Flay: code duplication detector'
   FlayTask.new do |t|
     t.threshold = CODE_DUPLICATION_TOLERANCE
     t.verbose = true
@@ -41,7 +41,7 @@ end
 
 desc 'Analyze for complex code'
 task :flog do
-  banner 'Flog code complexity analyser'
+  banner 'Flog: code complexity analyser'
   flog = Flog.new
   flog.flog(['app'])
 
