@@ -18,6 +18,9 @@ task :all => ['clean', 'flay', 'flog', 'rails_best_practices', 'reek:production'
 
 namespace :reek do
   {:production => 'app', :spec => 'spec'}.each do |env, dir|
+    puts '*********************************************'
+    puts "Running reek code smell detector on #{env} code"
+
     Reek::Rake::Task.new(env) do |t|
       t.source_files = "#{dir}/**/*.rb"
       t.config_files = 'config/production.reek'
@@ -28,14 +31,17 @@ end
 
 desc 'Analyze for code duplication'
 task :flay do
+  banner 'Flay code duplication detector'
   FlayTask.new do |t|
     t.threshold = CODE_DUPLICATION_TOLERANCE
+    t.verbose = true
     t.dirs = %w(app)
   end
 end
 
 desc 'Analyze for complex code'
 task :flog do
+  banner 'Flog code complexity analyser'
   flog = Flog.new
   flog.flog(['app'])
 
@@ -52,6 +58,7 @@ end
 task(:enable_simplecov) { ENV['COVERAGE'] = 'true' }
 
 task :rails_best_practices do
+  banner 'Rails best practices'
   Open3.popen3('rails_best_practices') do |stdin, stdout, stderr, wait_thr|
     out = stdout.readlines
     raise out.join unless wait_thr.value == 0
@@ -62,4 +69,10 @@ desc 'Clean up after having run a build'
 task :clean do
   File.delete(COVERAGE_DATA_LOCATION) if File.exists?(COVERAGE_DATA_LOCATION)
   FileUtils.rm_r(COVERAGE_REPORT_LOCATION, :force => true)
+end
+
+def banner(message)
+  puts '*********************************************'
+  puts message
+  puts message.size.times.collect{'-'}.join
 end
