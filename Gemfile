@@ -13,4 +13,6 @@ group :test do
   gem 'rspec-rails'
   gem 'reek'
   gem 'simplecov', '>= 0.4.0', :require => false
+  gem 'flay'
+  gem 'flog'
 end
