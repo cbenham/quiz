@@ -1,3 +1,13 @@
+if ENV['COVERAGE']
+  require 'simplecov'
+  require 'build_failure_formatter'
+  SimpleCov.formatter = BuildFailureFormatter
+  SimpleCov.start 'rails' do
+    coverage_dir 'tmp/coverage'
+    add_filter '/vendor/'
+  end
+end
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)

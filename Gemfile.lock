@@ -35,17 +35,11 @@ GEM
     churn (0.0.4)
       json
       main
-    configatron (2.8.2)
-      yamler (>= 0.1.0)
-    cover_me (1.1.2)
-      configatron
-      hashie
     diff-lcs (1.1.3)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fattr (2.2.0)
     haml (3.1.2)
-    hashie (1.1.0)
     i18n (0.5.0)
     json (1.5.3)
     mail (2.2.19)
@@ -106,21 +100,23 @@ GEM
     ruby_parser (2.2.0)
       sexp_processor (~> 3.0)
     sexp_processor (3.0.6)
+    simplecov (0.4.2)
+      simplecov-html (~> 0.4.4)
+    simplecov-html (0.4.5)
     thor (0.14.6)
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.29)
-    yamler (0.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   churn
-  cover_me
   haml
   mysql2 (~> 0.2.11)
   rails (= 3.0.10)
   reek
   rspec-rails
+  simplecov (>= 0.4.0)

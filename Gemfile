@@ -12,5 +12,5 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'reek'
-  gem 'cover_me'
+  gem 'simplecov', '>= 0.4.0', :require => false
 end
