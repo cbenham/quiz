@@ -1,0 +1,14 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %title Quiz
+    %meta{'http-equiv' => 'Content-Type', :content => 'text/html'}/
+    = stylesheet_link_tag :all
+    - {'blueprint/screen.css' => 'screen, projection', 'blueprint/print.css' => 'print'}.each do |css, media|
+      = stylesheet_link_tag css, :media => media
+    / [if IE]
+      = stylesheet_link_tag 'blueprint/ie.css', :media => 'screen, projection'
+    = csrf_meta_tag
+    = yield :head
+  %body
+    = yield
