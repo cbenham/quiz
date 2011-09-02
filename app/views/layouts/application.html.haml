@@ -11,4 +11,8 @@
     = csrf_meta_tag
     = yield :head
   %body
-    = yield
+    %div.container
+      %h1
+        = yield :body_title
+      #header.span-24.last
+        = yield
