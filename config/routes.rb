@@ -1,4 +1,7 @@
 Quiz::Application.routes.draw do
+
+  resources :questions
+
   root :to => 'home#index'
 
   # The priority is based upon order of creation:

@@ -18,9 +18,6 @@ task :all => ['clean', 'flay', 'flog', 'rails_best_practices', 'reek:production'
 
 namespace :reek do
   {:production => 'app', :spec => 'spec'}.each do |env, dir|
-    puts '*********************************************'
-    puts "Running reek code smell detector on #{env} code"
-
     Reek::Rake::Task.new(env) do |t|
       t.source_files = "#{dir}/**/*.rb"
       t.config_files = 'config/production.reek'

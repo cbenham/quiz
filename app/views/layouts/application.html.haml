@@ -12,7 +12,9 @@
     = yield :head
   %body
     %div.container
-      %h1
-        = yield :body_heading
       #header.span-24.last
-        = yield
+        %hr
+        %h1.prepend-10
+          = yield :body_heading
+        %hr
+          = yield

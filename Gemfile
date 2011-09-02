@@ -11,6 +11,10 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'reek'
+  gem 'cucumber-rails'
+  gem 'factory_girl'
+  gem 'spork'
+  gem 'shoulda-matchers'
 end
 
 group :build do
