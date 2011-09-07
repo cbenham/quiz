@@ -4,8 +4,8 @@ module ApplicationHelper
     content_for :body_heading, title
   end
 
-  def nav_links(*link)
-    content_for :navigation_links, link
+  def nav_links(*links)
+    content_for :navigation_links, raw(links.join)
   end
 
 end
