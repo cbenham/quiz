@@ -35,4 +35,6 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.render_views
+
+  config.include ActiveSupport::Testing::Assertions
 end

@@ -10,6 +10,7 @@
     - @question.answers.each_with_index do |answer, i|
       %div.span-24
         = f.fields_for :answers, answer do |answers|
+          = answers.hidden_field :position, :value => i
           %div.prepend-1.span-1
             = answers.label :answer, "#{i + 1}:"
           %div.span-1

@@ -2,6 +2,8 @@ class Question < ActiveRecord::Base
   has_many :answers
   belongs_to :choice, :class_name => 'Answer', :foreign_key => :choice_id
 
+  accepts_nested_attributes_for :answers
+
   validates_presence_of :question
   validates_presence_of :choice
   validate :validate_quantity_of_questions
