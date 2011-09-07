@@ -1,5 +1,5 @@
 - body_heading('New Question')
-= nav_links link_to('Questions', questions_path, :class => 'span-2')
+= nav_links link_to('Home', root_path, :class => 'span-1'), link_to('Questions', questions_path, :class => 'span-2')
 = render :partial => 'layouts/errors', :locals => { :object => @question }
 = form_for @question do |f|
   %div.span-24

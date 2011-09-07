@@ -1,5 +1,5 @@
 - body_heading 'Questions'
-= nav_links link_to('New Question', new_question_path)
+= nav_links link_to('Home', root_path, :class => 'span-1'), link_to('New Question', new_question_path)
 %ul
   - @questions.each do |question|
     %li
