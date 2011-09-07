@@ -7,4 +7,16 @@ describe ApplicationHelper do
       body_heading('foo')
     end
   end
+
+  describe 'navigation header links' do
+    it 'should be created for single link when only one link is supplied' do
+      should_receive(:content_for).with(:navigation_links, ['link'])
+      nav_links('link')
+    end
+
+    it 'should create multiple links when multiple links are supplied' do
+      should_receive(:content_for).with(:navigation_links, ['link_one', 'link_two'])
+      nav_links('link_one', 'link_two')
+    end
+  end
 end
