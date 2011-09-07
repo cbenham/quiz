@@ -27,6 +27,7 @@ describe QuestionsController do
       get :new
 
       response.should be_success
+      response.body.should_not =~ /The errors below prevented the form from being saved:/
       response.body.should =~ /New Question/m
       response.body.should =~ /Question:/m
       4.times do |i|
@@ -45,9 +46,9 @@ describe QuestionsController do
       assert_difference('Question.count') { post :create, :question => params }
 
       response.should be_redirect
-      assert_equal 1, Question.count
-      assert_equal 'What is 1 + 1?', Question.first.question
-      assert_equal '2', Question.first.answers.first.answer
+      Question.count.should eql(1)
+      Question.first.question.should eql('What is 1 + 1?')
+      Question.first.answers.first.answer.should eql('2')
     end
 
     it 'show errors when attempting to create an empty question' do
