@@ -1,4 +1,5 @@
 - body_heading('New Question')
+= render :partial => 'layouts/errors', :locals => { :object => @question }
 = form_for @question do |f|
   %div.span-24
     %div.span-3

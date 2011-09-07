@@ -36,7 +36,7 @@ describe QuestionsController do
     end
 
     it 'create new question upon form submission' do
-      params = { :question => "What is 1 + 1?", :choice => 1,
+      params = { :question => 'What is 1 + 1?', :choice => 1,
                  :answers_attributes => { 0 => { :position => 0, :answer => 1 },
                                           1 => { :position => 1, :answer => 2 },
                                           2 => { :position => 2, :answer => 3 },
@@ -48,6 +48,19 @@ describe QuestionsController do
       assert_equal 1, Question.count
       assert_equal 'What is 1 + 1?', Question.first.question
       assert_equal '2', Question.first.answers.first.answer
+    end
+
+    it 'show errors when attempting to create an empty question' do
+      params = { :question => '', :choice => 1,
+                 :answers_attributes => { 0 => { :position => 0, :answer => 1 },
+                                          1 => { :position => 1, :answer => 2 },
+                                          2 => { :position => 2, :answer => 3 },
+                                          3 => { :position => 3, :answer => 4 }}}
+
+      assert_no_difference('Question.count') { post :create, :question => params }
+
+      response.response_code.should eql(400)
+      response.body.should =~ /Question can't be blank/
     end
   end
 end

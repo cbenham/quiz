@@ -14,15 +14,21 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    choice = remove_choice_param
-    question = Question.new(params[:question])
-    question.choice = question.answers[choice]
-    question.save!
-
-    redirect_to questions_url
+    create_question
+    if @question.save
+      redirect_to questions_url
+    else
+      render :new, :status => 400
+    end
   end
 
   private
+
+  def create_question
+    choice = remove_choice_param
+    @question = Question.new(params[:question])
+    @question.choice = @question.answers[choice]
+  end
 
   def remove_choice_param
     question_params = params[:question]

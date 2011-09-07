@@ -1,0 +1,7 @@
+- if object.errors
+  %div.errors.span-24
+    %h5= "The errors below prevented the form from being saved:"
+    %ul
+      - object.errors.full_messages.each do |msg|
+        %li= msg
+    %hr
