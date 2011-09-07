@@ -1,4 +1,5 @@
 - body_heading 'Questions'
+= nav_links link_to('New Question', new_question_path)
 %ul
   - @questions.each do |question|
     %li
