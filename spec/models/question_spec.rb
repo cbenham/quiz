@@ -6,15 +6,36 @@ describe Question do
   it { should validate_presence_of(:question) }
   it { should validate_presence_of(:choice) }
 
-  it 'should raise error when created with more than four answers' do
-    answers = [choice = Answer.new(:answer => 1, :position => 1)]
-    answers << Answer.new(:answer => 2, :position => 2)
-    answers << Answer.new(:answer => 3, :position => 3)
-    answers << Answer.new(:answer => 4, :position => 4)
-    answers << Answer.new(:answer => 5, :position => 5)
-    question = Question.new(:question => '1 + 1 = ?', :answers => answers, :choice => choice)
+  describe 'should' do
+    before(:each) do
+      @question = Factory.build(:question)
+    end
 
-    question.valid?.should be(false)
-    question.errors[:answers].should eql(['Expected exactly 4 answers but found 5'])
+    it 'raise error when created with more than four answers' do
+      choice = Factory.build(:answer, :answer => 5, :position => 5)
+
+      @question.choice = choice
+      @question.answers << choice
+
+      @question.valid?.should be_false
+      @question.errors[:answers].should eql(['Expected exactly 4 answers but found 5'])
+    end
+
+    it 'set choice when user choice is set' do
+      @question.choice = nil
+      @question.user_choice = 1
+
+      @question.valid?.should be_true
+      @question.choice.should eql(@question.answers[0])
+    end
+
+    it 'set choice to nil when user choice is not made' do
+      @question.choice = @question.answers.first
+      @question.user_choice = nil
+
+      @question.valid?.should be_false
+      @question.errors.messages[:choice].should eql(["can't be blank"])
+      @question.choice.should be_nil
+    end
   end
 end

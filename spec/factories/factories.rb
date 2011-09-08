@@ -5,6 +5,7 @@ FactoryGirl.define do
       question.answers = 4.times.collect do |i |
         Factory.build(:answer, :answer => i + 1, :position => i + 1)
       end if question.answers.empty?
+      question.user_choice = 1 unless question.user_choice
       question.choice = question.answers.first unless question.choice
     end
   end
