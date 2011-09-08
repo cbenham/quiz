@@ -23,7 +23,7 @@ describe Question do
 
     it 'set choice when user choice is set' do
       @question.choice = nil
-      @question.user_choice = 1
+      @question.user_choice = 0
 
       @question.valid?.should be_true
       @question.choice.should eql(@question.answers[0])

@@ -20,6 +20,6 @@ class Question < ActiveRecord::Base
 
   def copy_user_choice
     actual_choice = user_choice
-    self.choice = actual_choice ? answers[actual_choice.to_i - 1] : nil
+    self.choice = actual_choice ? answers[actual_choice.to_i] : nil
   end
 end
