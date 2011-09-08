@@ -11,6 +11,10 @@ describe Question do
       @question = Factory.build(:question)
     end
 
+    after(:each) do
+      Timecop.return
+    end
+
     it 'raise error when created with more than four answers' do
       choice = Factory.build(:answer, :answer => 5, :position => 5)
 
@@ -36,6 +40,14 @@ describe Question do
       @question.valid?.should be_false
       @question.errors.messages[:choice].should eql(["can't be blank"])
       @question.choice.should be_nil
+    end
+
+    it 'be able to find the earliest created question' do
+      @question.save!
+      Timecop.freeze(Date.yesterday)
+      expected_question = Factory(:question)
+      Timecop.return
+      Question.first.should eql(expected_question)
     end
   end
 end

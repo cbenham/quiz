@@ -14,6 +14,7 @@ group :test do
   gem 'factory_girl'
   gem 'spork'
   gem 'shoulda-matchers'
+  gem 'timecop'
 end
 
 group :build do
