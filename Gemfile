@@ -9,7 +9,6 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails'
   gem 'reek'
   gem 'cucumber-rails'
   gem 'factory_girl'

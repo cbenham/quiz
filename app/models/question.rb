@@ -11,6 +11,8 @@ class Question < ActiveRecord::Base
   validates_presence_of :choice
   validate :validate_quantity_of_questions
 
+  default_scope :order => 'created_at ASC'
+
   private
 
   def validate_quantity_of_questions
