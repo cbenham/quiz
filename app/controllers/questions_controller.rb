@@ -21,4 +21,8 @@ class QuestionsController < ApplicationController
       render :new, :status => 400
     end
   end
+
+  def show
+    @question = Question.find(params[:id])
+  end
 end

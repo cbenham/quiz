@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :question do
-    question '1 + 3 + ?'
+    question '1 + 3 = ?'
     after_build do |question|
       question.answers = 4.times.collect do |i |
         Factory.build(:answer, :answer => i + 1, :position => i + 1)

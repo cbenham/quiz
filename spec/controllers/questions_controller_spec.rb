@@ -35,13 +35,7 @@ describe QuestionsController do
     end
 
     it 'create new question upon form submission' do
-      params = { :question => 'What is 1 + 1?', :user_choice => 1,
-                 :answers_attributes => { 0 => { :position => 0, :answer => 1 },
-                                          1 => { :position => 1, :answer => 2 },
-                                          2 => { :position => 2, :answer => 3 },
-                                          3 => { :position => 3, :answer => 4 }}}
-
-      assert_difference('Question.count') { post :create, :question => params }
+      assert_difference('Question.count') { post :create, :question => CreateQuestionParameterMerge.new.parameters }
 
       response.should be_redirect
       Question.count.should eql(1)
@@ -50,41 +44,34 @@ describe QuestionsController do
     end
 
     it 'show errors when attempting to create an empty question' do
-      params = { :question => '', :user_choice => 1,
-                 :answers_attributes => { 0 => { :position => 0, :answer => 1 },
-                                          1 => { :position => 1, :answer => 2 },
-                                          2 => { :position => 2, :answer => 3 },
-                                          3 => { :position => 3, :answer => 4 }}}
-
-      assert_no_difference('Question.count') { post :create, :question => params }
+      assert_no_difference('Question.count') { post :create, :question =>
+          CreateQuestionParameterMerge.new.parameters(:question => '') }
 
       response.response_code.should eql(400)
       response.body.should =~ /Question can't be blank/
     end
 
     it 'show errors when attempting to create a question without a choice' do
-      params = { :question => 'What is 1 + 1?',
-           :answers_attributes => { 0 => { :position => 0, :answer => 1 },
-                                    1 => { :position => 1, :answer => 2 },
-                                    2 => { :position => 2, :answer => 3 },
-                                    3 => { :position => 3, :answer => 4 }}}
-
-      assert_no_difference('Question.count') { post :create, :question => params }
+      assert_no_difference('Question.count') { post :create, :question =>
+          CreateQuestionParameterMerge.new.parameters(:user_choice => nil) }
 
       response.response_code.should eql(400)
       response.body.should =~ /Choice can't be blank/
     end
 
     it 'continues to keep options selected when an error occurs' do
-      params = { :question => '', :user_choice => 1,
-                 :answers_attributes => { 0 => { :position => 0, :answer => 1 },
-                                          1 => { :position => 1, :answer => 2 },
-                                          2 => { :position => 2, :answer => 3 },
-                                          3 => { :position => 3, :answer => 4 }}}
-
-      assert_no_difference('Question.count') { post :create, :question => params }
+      assert_no_difference('Question.count') { post :create, :question =>
+          CreateQuestionParameterMerge.new.parameters(:question => '') }
 
       response.body.should have_selector("input[value='1'][checked='checked']")
+    end
+
+    it 'show the answers to a question' do
+      question = Factory(:question)
+
+      get :show, :id => question.id
+
+      response.body.should =~ Regexp.new(Regexp.escape(question.question))
     end
   end
 end
