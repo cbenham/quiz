@@ -13,6 +13,10 @@ class Question < ActiveRecord::Base
 
   default_scope :order => 'created_at ASC'
 
+  def next_question
+    Question.first(:conditions => ['created_at > ?', created_at])
+  end
+
   private
 
   def validate_quantity_of_questions

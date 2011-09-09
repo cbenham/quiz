@@ -49,5 +49,15 @@ describe Question do
       Timecop.return
       Question.first.should eql(expected_question)
     end
+
+    it 'find next question after the current question' do
+      @question.save!
+      Timecop.freeze(1.hour.from_now) { Factory(:question) }
+      Timecop.freeze(Date.yesterday)
+      first_question = Factory(:question)
+      Timecop.return
+
+      first_question.next_question.should eql(@question)
+    end
   end
 end
