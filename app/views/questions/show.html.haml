@@ -1,5 +1,5 @@
 - body_heading('Question')
 = nav_links link_to('Home', root_path, :class => 'span-1'),
-  @question.next_question ? link_to('Next Question', question_path(@question.next_question)) : ''
+  @question.next_question ? link_to('Next Question', question_path(@question.next_question)) : link_to('Show Answers', answers_questions_path)
 
 %h1= "Question: #{@question.question}"

@@ -66,12 +66,13 @@ describe QuestionsController do
       response.body.should have_selector("input[value='1'][checked='checked']")
     end
 
-    it 'show the answers to a question' do
+    it 'show the answers to a question and render a show answers link when the current question is the last' do
       question = Factory(:question)
 
       get :show, :id => question.id
 
       response.body.should =~ Regexp.new(Regexp.escape(question.question))
+      response.body.should have_selector("a[href='/questions/answers']")
     end
 
     it 'render a link to the next question when there are more questions to answer' do
