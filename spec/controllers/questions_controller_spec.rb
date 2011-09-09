@@ -78,12 +78,22 @@ describe QuestionsController do
     it 'render a link to the next question when there are more questions to answer' do
       first_question = nil
       second_question = nil
-      Timecop.freeze(2.hours.ago) { first_question = Factory(:question, :question => 'What is 5 - 1?') }
+      Timecop.freeze(2.hours.ago) { first_question = Factory(:question) }
       Timecop.freeze(1.hour.ago) { second_question = Factory(:question) }
 
       get :show, :id => first_question.id
 
       response.body.should have_selector("a[href='/questions/#{second_question.id}']")
+    end
+
+    it 'show answers to all questions when on the answers page' do
+      first_question = Factory(:question)
+      second_question = Factory(:question, :question => 'What is 5 - 1 = ?')
+
+      get :answers
+
+      response.body.should =~ Regexp.new(Regexp.escape(first_question.question))
+      response.body.should =~ Regexp.new(Regexp.escape(second_question.question))
     end
   end
 end

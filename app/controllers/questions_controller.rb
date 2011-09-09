@@ -2,9 +2,9 @@ class QuestionsController < ApplicationController
 
   respond_to :html
 
-  def index
+  before_filter :only => [:index, :answers] do
     @questions = Question.all
-    respond_with @questions
+    respond_with(@questions)
   end
 
   def new
@@ -24,5 +24,6 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    respond_with(@question)
   end
 end

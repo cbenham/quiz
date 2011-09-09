@@ -1,0 +1,8 @@
+- body_heading('Answers')
+= nav_links(link_to 'Home', root_path)
+%h1
+  %ol
+    - @questions.each do |question|
+      %li=question.question
+      %ul
+        %li=question.answer
