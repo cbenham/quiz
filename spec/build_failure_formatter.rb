@@ -1,4 +1,4 @@
-class BuildFailureFormatter < SimpleCov::Formatter::SimpleFormatter
+class BuildFailureFormatter < SimpleCov::Formatter::HTMLFormatter
 
   def format(result)
     super(result)
