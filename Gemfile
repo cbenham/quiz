@@ -4,7 +4,7 @@ gem 'rails'
 gem 'mysql2'
 gem 'haml'
 gem 'pg'
-gem 'reek'
+gem 'reek', :require => false
 
 group :development do
   gem 'rspec-rails'
