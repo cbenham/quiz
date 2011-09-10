@@ -40,7 +40,7 @@ describe QuestionsController do
       response.should be_redirect
       Question.count.should eql(1)
       Question.first.question.should eql('What is 1 + 1?')
-      Question.first.choice.should eql(Question.first.answers.first)
+      Question.first.choice.should eql(Answer.find_by_answer('2'))
     end
 
     it 'show errors when attempting to create an empty question' do
