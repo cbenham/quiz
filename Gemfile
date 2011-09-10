@@ -3,13 +3,13 @@ source 'http://rubygems.org'
 gem 'rails'
 gem 'mysql2'
 gem 'haml'
+gem 'reek', :require => false
 
 group :development do
   gem 'rspec-rails'
 end
 
 group :test do
-  gem 'reek'
   gem 'cucumber-rails'
   gem 'factory_girl'
   gem 'spork'
