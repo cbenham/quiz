@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails'
 gem 'mysql2'
 gem 'haml'
+gem 'activerecord-postgresql-adapter'
 gem 'reek', :require => false
 
 group :development do
