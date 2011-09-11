@@ -59,5 +59,17 @@ describe Question do
 
       first_question.next_question.should eql(@question)
     end
+
+    it 'order answers by position' do
+      answers = [choice = Factory(:answer, :answer => 4, :position => 4)]
+      answers << first_answer = Factory(:answer, :answer => '1', :position => 1)
+      answers << third_answer = Factory(:answer, :answer => '3', :position => 3)
+      answers << second_answer = Factory(:answer, :answer => '2', :position => 2)
+
+      question = Factory(:question, :question => 'What is 1 + 3?', :answers => answers, :choice => choice)
+      question.answers.reload
+
+      question.answers.should eql([first_answer, second_answer, third_answer, choice])
+    end
   end
 end
