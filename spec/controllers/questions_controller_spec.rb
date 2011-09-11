@@ -25,13 +25,14 @@ describe QuestionsController do
       get :new
 
       response.should be_success
-      response.body.should_not =~ /The errors below prevented the form from being saved:/
-      response.body.should =~ /New Question/m
-      response.body.should =~ /Question:/m
+      response.body.should_not =~ /The errors below prevented the form from being saved:/m
+      response.body.should have_selector("h1:contains('New Question')")
+      response.body.should have_selector("label:contains('Question:')")
       4.times do |i|
-        response.body.should =~ /#{i + 1}:/m
+        response.body.should have_selector("label:contains('#{i + 1}:')")
+        response.body.should have_selector("input[type='hidden'][value='#{i + 1}']")
       end
-      response.body.should =~ /Create Question/m
+      response.body.should have_selector("input[value='Create Question']")
     end
 
     it 'create new question upon form submission' do
@@ -66,7 +67,15 @@ describe QuestionsController do
       response.body.should have_selector("input[value='1'][checked='checked']")
     end
 
-    it 'show the answers to a question and render a show answers link when the current question is the last' do
+    it 'show the answers to a question when quiz is in play' do
+      question = Factory(:question)
+
+      get :show, :id => question.id
+
+      (1..4).each { |answer| response.body.should have_selector("li:contains('#{answer}')") }
+    end
+
+    it 'render a link to the answers when the current question is the last' do
       question = Factory(:question)
 
       get :show, :id => question.id

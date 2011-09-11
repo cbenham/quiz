@@ -3,3 +3,6 @@
   @question.next_question ? link_to('Next Question', question_path(@question.next_question)) : link_to('Show Answers', answers_questions_path)
 
 %h1= "Question: #{@question.question}"
+%ol
+  - @question.answers.each do |answer|
+    %li{:value => answer.position}= answer.answer

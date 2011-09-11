@@ -7,9 +7,9 @@ class CreateQuestionParameterMerge
   def parameters(params = {})
     @params.merge!(params)
     {:question => @params[:question], :user_choice => @params[:user_choice],
-     :answers_attributes => {0 => {:position => 0, :answer => @params[:first_answer]},
-                             1 => {:position => 1, :answer => @params[:second_answer]},
-                             2 => {:position => 2, :answer => @params[:third_answer]},
-                             3 => {:position => 3, :answer => @params[:fourth_answer]}}}
+     :answers_attributes => {0 => {:position => 1, :answer => @params[:first_answer]},
+                             1 => {:position => 2, :answer => @params[:second_answer]},
+                             2 => {:position => 3, :answer => @params[:third_answer]},
+                             3 => {:position => 4, :answer => @params[:fourth_answer]}}}
   end
 end
