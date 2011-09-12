@@ -37,4 +37,5 @@ RSpec.configure do |config|
   config.render_views
 
   config.include ActiveSupport::Testing::Assertions
+  config.include TwilioMatchers
 end

@@ -3,13 +3,12 @@ require 'spec_helper'
 describe TwilioResponsesController do
 
   context 'with a current question' do
-
     before(:each) do
       @question = Factory(:question)
       session[:current_question] = @question
     end
 
-    it 'should associate an incoming SMS message as an answer with the current question' do
+    it 'should associate an incoming message as an answer with the current question' do
       assert_difference 'Number.count' do
         post :create, :From => '1234567890', :To => '0987654321', :Body => '1'
       end
@@ -33,6 +32,16 @@ describe TwilioResponsesController do
       number.answers.should eql([@question.answers.first])
 
       @question.answers.find_by_answer('1').numbers.should eql([number])
+    end
+  end
+
+  context 'without a current question' do
+    it 'should ignore the response' do
+      assert_no_difference 'Number.count' do
+        post :create, :From => '1234567890', :To => '0987654321', :Body => 1
+      end
+
+      response.body.should have_empty_response
     end
   end
 
