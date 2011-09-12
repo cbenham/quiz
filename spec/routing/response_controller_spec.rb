@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe ResponsesController do
+describe TwilioResponsesController do
   it 'routes the post request /response to response#create' do
-    { :post => '/responses' }.should route_to(:controller => 'responses', :action => 'create')
+    { :post => '/twilio_responses' }.should route_to(:controller => 'twilio_responses', :action => 'create')
   end
 end

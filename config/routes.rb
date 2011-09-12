@@ -6,7 +6,7 @@ Quiz::Application.routes.draw do
     end
   end
 
-  resource :responses
+  resource :twilio_responses
 
   root :to => 'home#index'
 end

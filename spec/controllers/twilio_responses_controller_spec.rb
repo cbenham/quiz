@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ResponsesController do
+describe TwilioResponsesController do
 
   it 'should associate an incoming SMS message as an answer with the current question' do
     question = Factory(:question)
