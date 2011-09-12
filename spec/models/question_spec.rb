@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Question do
   it { should have_many(:answers) }
   it { should belong_to(:choice) }
+  it { should have_many(:numbers).through(:answers) }
   it { should validate_presence_of(:question) }
   it { should validate_presence_of(:choice) }
 

@@ -60,6 +60,7 @@ describe TwilioResponsesController do
 
         response.body.should have_empty_twilio_response
 
+        @existing_number.should eql(Number.find_by_id(@existing_number.id))
         @question.answers.find_by_answer('1').numbers.should be_empty
         @question.answers.find_by_answer('2').numbers.should eql([@existing_number])
       end

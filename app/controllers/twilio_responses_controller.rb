@@ -22,9 +22,8 @@ class TwilioResponsesController < ApplicationController
   end
 
   def idempotently_delete_current_response_for_number(current_question)
-    ids = @number.answers.map(&:id)
-    answer = current_question.answers.find_by_id(ids)
-    answer.numbers.delete(@number) if answer
+    current_question.answers.find_each { |answer| answer.numbers.destroy(@number) } if
+        current_question.numbers.find_by_id(@number)
   end
 
   def save_number_to_answer
