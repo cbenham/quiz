@@ -9,7 +9,7 @@ describe QuestionsController do
     { :get => '/questions/new' }.should route_to(:controller => 'questions', :action => 'new')
   end
 
-  it 'routes a post /questions to questions#create' do
+  it 'routes a post request for /questions to questions#create' do
     { :post => '/questions' }.should route_to(:controller => 'questions', :action => 'create')
   end
 
