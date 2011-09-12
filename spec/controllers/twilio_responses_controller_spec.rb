@@ -39,11 +39,25 @@ describe TwilioResponsesController do
     end
 
     it 'should respond informing user there is no option if user submits an answer with no option' do
-      assert_no_difference 'Number.count' do
+      assert_difference 'Number.count' do
         post :create, :From => '1234567890', :To => '0987654321', :Body => 'invalid'
       end
 
+      Number.find_by_number('1234567890').answers.should be_empty
       response.body.should have_twilio_message('Answer not recognized, you may try again')
+    end
+
+    it 'should allow user to amend their response' do
+      expected_number = @question.answers.find_by_answer('1').numbers.create(:number => '1234567890')
+
+      assert_no_difference 'Number.count' do
+        post :create, :From => '1234567890', :To => '0987654321', :Body => '2'
+      end
+
+      response.body.should have_empty_twilio_response
+
+      @question.answers.find_by_answer('1').numbers.should be_empty
+      @question.answers.find_by_answer('2').numbers.should eql([expected_number])
     end
   end
 
