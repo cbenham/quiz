@@ -95,7 +95,7 @@ describe QuestionsController do
       response.body.should have_selector("a[href='/questions/#{second_question.id}']")
     end
 
-    it 'show answers to all questions when on the answers page' do
+    it 'show the correct answers to all questions when on the answers page' do
       first_question = Factory(:question)
       second_question = Factory(:question, :question => 'What is 5 - 1 = ?')
 
