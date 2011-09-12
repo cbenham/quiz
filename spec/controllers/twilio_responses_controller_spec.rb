@@ -47,17 +47,35 @@ describe TwilioResponsesController do
       response.body.should have_twilio_message('Answer not recognized, you may try again')
     end
 
-    it 'should allow user to amend their response' do
-      expected_number = @question.answers.find_by_answer('1').numbers.create(:number => '1234567890')
+    describe 'and answer' do
 
-      assert_no_difference 'Number.count' do
-        post :create, :From => '1234567890', :To => '0987654321', :Body => '2'
+      before(:each) do
+        @existing_number = @question.answers.find_by_answer('1').numbers.create(:number => '1234567890')
       end
 
-      response.body.should have_empty_twilio_response
+      it 'should allow contestant to amend their response' do
+        assert_no_difference 'Number.count' do
+          post :create, :From => '1234567890', :To => '0987654321', :Body => '2'
+        end
 
-      @question.answers.find_by_answer('1').numbers.should be_empty
-      @question.answers.find_by_answer('2').numbers.should eql([expected_number])
+        response.body.should have_empty_twilio_response
+
+        @question.answers.find_by_answer('1').numbers.should be_empty
+        @question.answers.find_by_answer('2').numbers.should eql([@existing_number])
+      end
+
+      it 'should allow multiple contestants to answer' do
+        number = '77665588'
+
+        assert_difference 'Number.count' do
+          post :create, :From => number , :To => '0987654321', :Body => '3'
+        end
+
+        response.body.should have_empty_twilio_response
+
+        @question.answers.find_by_answer('1').numbers.should eql([@existing_number])
+        @question.answers.find_by_answer('3').numbers.should eql([Number.find_by_number(number)])
+      end
     end
   end
 
