@@ -19,6 +19,8 @@ describe TwilioResponsesController do
       number.answers.should eql([@question.answers.first])
 
       @question.answers.find_by_answer('1').numbers.should eql([number])
+
+      response.body.should have_empty_twilio_response
     end
 
     it 'should remove any whitespace in an answer' do
@@ -32,6 +34,16 @@ describe TwilioResponsesController do
       number.answers.should eql([@question.answers.first])
 
       @question.answers.find_by_answer('1').numbers.should eql([number])
+
+      response.body.should have_empty_twilio_response
+    end
+
+    it 'should respond informing user there is no option if user submits an answer with no option' do
+      assert_no_difference 'Number.count' do
+        post :create, :From => '1234567890', :To => '0987654321', :Body => 'invalid'
+      end
+
+      response.body.should have_twilio_message('Answer not recognized, you may try again')
     end
   end
 
@@ -41,7 +53,7 @@ describe TwilioResponsesController do
         post :create, :From => '1234567890', :To => '0987654321', :Body => 1
       end
 
-      response.body.should have_empty_response
+      response.body.should have_empty_twilio_response
     end
   end
 
