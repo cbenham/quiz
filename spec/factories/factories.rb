@@ -14,4 +14,8 @@ FactoryGirl.define do
     answer 'The earth was thought to be square.'
     position 1
   end
+
+  factory :number do
+    number '1234567890'
+  end
 end

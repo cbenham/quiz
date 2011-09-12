@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110902053054) do
+ActiveRecord::Schema.define(:version => 20110912015923) do
 
   create_table "answers", :force => true do |t|
     t.string   "answer"
@@ -22,6 +22,22 @@ ActiveRecord::Schema.define(:version => 20110902053054) do
   end
 
   add_index "answers", ["question_id"], :name => "by_question"
+
+  create_table "answers_numbers", :id => false, :force => true do |t|
+    t.integer  "answer_id"
+    t.integer  "number_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "answers_numbers", ["answer_id"], :name => "by_answer"
+  add_index "answers_numbers", ["number_id"], :name => "by_number"
+
+  create_table "numbers", :force => true do |t|
+    t.string   "number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "questions", :force => true do |t|
     t.string   "question"

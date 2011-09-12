@@ -6,5 +6,7 @@ Quiz::Application.routes.draw do
     end
   end
 
+  resource :responses
+
   root :to => 'home#index'
 end
