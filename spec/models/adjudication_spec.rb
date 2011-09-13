@@ -22,7 +22,7 @@ describe Adjudication do
 
     context 'and no answered questions' do
       it 'should have no correct answers for any question' do
-        Adjudication.score.results.should eql({'1' => 0, '2' => 0, '3' => 0, '4' => 0})
+        Adjudication.score.results.should be_empty
       end
     end
 
@@ -45,7 +45,7 @@ describe Adjudication do
       end
 
       it 'should calculate scores' do
-        @adjudication.results.should eql({'1' => 3, '2' => 2, '3' => 1, '4' => 0})
+        @adjudication.results.should eql({'1' => 3, '2' => 2, '3' => 1})
       end
     end
   end
@@ -69,7 +69,7 @@ describe Adjudication do
       @results['1'] = 1
 
       @twilio_mock.expects(:create).with(has_entries(:to => '1',
-                                  :body => "Thanks for playing! Sorry, you did not win. You got 1 of 1 questions correct."))
+                                  :body => "Sorry, you did not win. You got 1 of 1 questions correct. Thanks for coming to see my talk!"))
 
       @adjudication.notify_contestants(0)
     end
@@ -80,7 +80,7 @@ describe Adjudication do
       @results['1'] = 1
 
       @twilio_mock.expects(:create).with(has_entries(:to => '1',
-                                  :body => "Thanks for playing! Congratulations! You are winner 1, present this message to claim your prize. You got 1 of 1 questions correct."))
+                                  :body => "Congratulations! You are winner 1, present this message to claim your prize. You got 1 of 1 questions correct. Thanks for coming to see my talk!"))
 
       @adjudication.notify_contestants(1)
     end
@@ -91,11 +91,11 @@ describe Adjudication do
       @results.merge!('1' => 3, '2' => 2, '3' => 1)
 
       @twilio_mock.expects(:create).with(has_entries(:to => '1',
-                                         :body => "Thanks for playing! Congratulations! You are winner 1, present this message to claim your prize. You got 3 of 3 questions correct."))
+                                         :body => "Congratulations! You are winner 1, present this message to claim your prize. You got 3 of 3 questions correct. Thanks for coming to see my talk!"))
       @twilio_mock.expects(:create).with(has_entries(:to => '2',
-                                         :body => "Thanks for playing! Congratulations! You are winner 2, present this message to claim your prize. You got 2 of 3 questions correct."))
+                                         :body => "Congratulations! You are winner 2, present this message to claim your prize. You got 2 of 3 questions correct. Thanks for coming to see my talk!"))
       @twilio_mock.expects(:create).with(has_entries(:to => '3',
-                                  :body => "Thanks for playing! Sorry, you did not win. You got 1 of 3 questions correct."))
+                                  :body => "Sorry, you did not win. You got 1 of 3 questions correct. Thanks for coming to see my talk!"))
 
       @adjudication.notify_contestants(2)
     end

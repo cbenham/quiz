@@ -6,7 +6,7 @@ class Adjudication
 
   WINNER_PERSONALISATION = "Congratulations! You are winner %s, present this message to claim your prize."
   LOSER_PERSONALISATION = 'Sorry, you did not win.'
-  BODY = "Thanks for playing! %s You got %s of %s questions correct."
+  BODY = "%s You got %s of %s questions correct. Thanks for coming to see my talk!"
 
   attr_reader :results
 
@@ -16,7 +16,7 @@ class Adjudication
   end
 
   def self.score
-    results = Question.all.inject(initialize_results) do |results, question|
+    results = Question.all.inject(Hash.new(0)) do |results, question|
       add_results_for_question(results, question)
       results
     end
@@ -60,13 +60,6 @@ class Adjudication
   def notify_losers
     #Method name meant in jest only
     @results.each { |number, questions_correct| send_message(number, questions_correct, LOSER_PERSONALISATION) }
-  end
-
-  def self.initialize_results
-    Number.all.inject({}) do |results, number|
-      results[number.number] = 0
-      results
-    end
   end
 
   def self.add_results_for_question(accumulator, question)
