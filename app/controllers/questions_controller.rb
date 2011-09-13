@@ -1,5 +1,7 @@
 class QuestionsController < ApplicationController
 
+  NUMBER_OF_WINNERS = 3
+
   respond_to :html
 
   def new
@@ -16,7 +18,7 @@ class QuestionsController < ApplicationController
   def answers
     CurrentQuestion.unmark
     @questions = Question.all
-    Adjudication.score.notify_contestants
+    Adjudication.score.notify_contestants(NUMBER_OF_WINNERS)
     respond_with(@questions)
   end
 

@@ -4,4 +4,5 @@ IrresponsibleModule:
 
 ControlCouple:
   exclude:
-  - mark
+  - CurrentQuestion#self.mark
+  - Adjudication#initialize
