@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def body_heading(title)
-    content_for :body_heading, title
+    content_for :body_heading, raw(title)
   end
 
   def nav_links(*links)

@@ -5,4 +5,5 @@
 %h1= "Question: #{@question.question}"
 %ol
   - @question.answers.each do |answer|
-    %li{:value => answer.position}= answer.answer
+    %h2.prepend-1
+      %li{:value => answer.position}= answer.answer
