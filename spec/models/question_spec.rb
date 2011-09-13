@@ -72,5 +72,23 @@ describe Question do
 
       question.answers.should eql([first_answer, second_answer, third_answer, choice])
     end
+
+    it 'be able to remove answers' do
+      first_number = Factory(:number)
+      second_number = Factory(:number, :number => '4444444')
+
+      first_answer = @question.answers.first
+      first_answer.numbers << first_number
+      @question.choice.numbers << second_number
+      @question.save!
+
+      Question.clear_contestant_answers
+
+      first_answer.reload.numbers.should be_empty
+      @question.reload.choice.numbers.should be_empty
+
+      Number.exists?(first_number).should be_true
+      Number.exists?(second_number).should be_true
+    end
   end
 end

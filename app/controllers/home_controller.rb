@@ -5,9 +5,8 @@ class HomeController < ApplicationController
   end
 
   def start
-    question = Question.first
-    session[:current_question] = question
-    redirect_to question_path(question)
+    Question.clear_contestant_answers
+    redirect_to question_path(session[:current_question] = Question.first)
   end
 
 end

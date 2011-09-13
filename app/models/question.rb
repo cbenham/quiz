@@ -16,6 +16,10 @@ class Question < ActiveRecord::Base
 
   default_scope :order => 'created_at ASC'
 
+  scope :clear_contestant_answers, lambda {
+    find_each { |question| question.answers.find_each { |answer| answer.clear_contestant_answers } }
+  }
+
   def next_question
     Question.first(:conditions => ['created_at > ?', created_at])
   end

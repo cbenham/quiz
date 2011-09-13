@@ -2,27 +2,49 @@ require 'spec_helper'
 
 describe HomeController do
 
-  describe 'should not' do
+  context 'should not' do
     it 'show the start quiz link when there are no questions to answer' do
       get :index
       response.body.should_not =~ /Start Quiz/
     end
   end
 
-  describe 'should' do
+  context 'when starting the quiz should' do
+
+    before(:each) do
+      @question = Factory(:question)
+    end
+
+    it 'set the current question' do
+      get :start
+
+      response.should redirect_to(:controller => :questions, :action => :show, :id => @question.id)
+      session[:current_question].should eql(@question)
+    end
+
+    it 'clear all registered answers' do
+      question = Factory(:question)
+      number = Factory(:number)
+
+      @question.choice.numbers << number
+      @question.save!
+
+      question.choice.numbers << number
+      question.save!
+
+      get :start
+
+      response.should redirect_to(:controller => :questions, :action => :show, :id => @question.id)
+      @question.numbers.should be_empty
+      question.numbers.should be_empty
+    end
+  end
+
+  context 'should' do
     it 'show the start quiz link when there are questions to answer' do
       Factory(:question)
       get :index
       response.body.should have_selector("a[href='/start']:contains('Start Quiz')")
-    end
-
-    it 'set the current question when starting the quiz' do
-      question = Factory(:question)
-
-      get :start
-
-      response.should redirect_to(:controller => :questions, :action => :show, :id => question.id)
-      session[:current_question].should eql(question)
     end
   end
 

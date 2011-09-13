@@ -4,4 +4,8 @@ class Answer < ActiveRecord::Base
 
   validates_presence_of :answer
   validates_presence_of :position
+
+  def clear_contestant_answers
+    numbers.destroy_all
+  end
 end
