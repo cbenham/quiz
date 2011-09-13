@@ -16,6 +16,7 @@ group :test do
   gem 'spork'
   gem 'shoulda-matchers'
   gem 'timecop'
+  gem 'mocha'
 end
 
 group :build do

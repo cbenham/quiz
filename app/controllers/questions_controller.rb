@@ -16,6 +16,7 @@ class QuestionsController < ApplicationController
   def answers
     CurrentQuestion.unmark
     @questions = Question.all
+    Number.send_contestant_results
     respond_with(@questions)
   end
 

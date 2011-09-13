@@ -121,5 +121,11 @@ describe QuestionsController do
 
       CurrentQuestion.current.should be_nil
     end
+
+    it 'inform winners when the quiz has finished' do
+      Number.expects(:send_contestant_results)
+
+      get :answers
+    end
   end
 end
