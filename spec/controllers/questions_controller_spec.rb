@@ -80,7 +80,7 @@ describe QuestionsController do
 
       get :show, :id => question.id
 
-      session[:current_question].should eql(question.id)
+      session[:current_question_id].should eql(question.id)
     end
 
     it 'render a link to the answers when the current question is the last' do

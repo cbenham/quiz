@@ -16,12 +16,12 @@ describe HomeController do
     end
 
     it 'set unset the current question' do
-       session[:current_question] = @question.id
+       session[:current_question_id] = @question.id
 
       get :start
 
       response.should redirect_to(:controller => :questions, :action => :show, :id => @question.id)
-      session[:current_question].should be_nil
+      session[:current_question_id].should be_nil
     end
 
     it 'clear all registered answers' do

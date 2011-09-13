@@ -12,7 +12,7 @@ class TwilioResponsesController < ApplicationController
   private
 
   def current_question
-    id = session[:current_question]
+    id = session[:current_question_id]
     Question.find(id) if id
   end
 
