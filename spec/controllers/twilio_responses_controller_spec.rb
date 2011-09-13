@@ -5,7 +5,7 @@ describe TwilioResponsesController do
   context 'with a current question' do
     before(:each) do
       @question = Factory(:question)
-      session[:current_question_id] = @question.id
+      CurrentQuestion.mark @question
     end
 
     it 'should associate an incoming message as an answer with the current question' do

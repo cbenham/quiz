@@ -80,7 +80,7 @@ describe QuestionsController do
 
       get :show, :id => question.id
 
-      session[:current_question_id].should eql(question.id)
+      CurrentQuestion.current.should eql(question)
     end
 
     it 'render a link to the answers when the current question is the last' do
@@ -115,11 +115,11 @@ describe QuestionsController do
 
     it 'unset the current question when the quiz has finished' do
       question = Factory(:question)
-      session[:current_question_id] = question.id
+      CurrentQuestion.mark question
 
       get :answers
 
-      session[:current_question_id].should be_nil
+      CurrentQuestion.current.should be_nil
     end
   end
 end

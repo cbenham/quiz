@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   respond_to :html
 
   before_filter :only => :answers do
-    session[:current_question_id] = nil
+    CurrentQuestion.unmark
   end
 
   before_filter :only => [:index, :answers] do
@@ -28,7 +28,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    session[:current_question_id] = @question.id
+    CurrentQuestion.mark @question
     respond_with(@question)
   end
 end

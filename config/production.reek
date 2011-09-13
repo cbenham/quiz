@@ -1,3 +1,7 @@
 ---
 IrresponsibleModule:
   enabled: false
+
+ControlCouple:
+  exclude:
+  - mark

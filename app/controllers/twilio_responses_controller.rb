@@ -4,17 +4,14 @@ class TwilioResponsesController < ApplicationController
 
   layout false
 
+  protect_from_forgery :except => :create
+
   def create
-    save_answer if current_question
+    save_answer if CurrentQuestion.current
     respond_with(@response_message)
   end
 
   private
-
-  def current_question
-    id = session[:current_question_id]
-    Question.find(id) if id
-  end
 
   def save_answer
     @number = Number.find_or_create_by_number(:number => params[:From])
@@ -23,13 +20,13 @@ class TwilioResponsesController < ApplicationController
   end
 
   def idempotently_delete_current_response_for_number
-    question = current_question
+    question = CurrentQuestion.current
     question.answers.find_each { |answer| answer.numbers.destroy(@number) } if
         question.numbers.find_by_id(@number)
   end
 
   def save_number_to_answer
-    if answer = current_question.answers.find_by_answer(clean_answer)
+    if answer = CurrentQuestion.current.answers.find_by_answer(clean_answer)
       answer.numbers << @number
     else
       @response_message = 'Answer not recognized, you may try again'

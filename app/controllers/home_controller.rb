@@ -6,7 +6,7 @@ class HomeController < ApplicationController
 
   def start
     Question.clear_contestant_answers
-    session[:current_question_id] = nil
+    CurrentQuestion.unmark
     redirect_to question_path(Question.first)
   end
 
