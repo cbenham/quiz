@@ -112,5 +112,14 @@ describe QuestionsController do
       response.body.should =~ Regexp.new(Regexp.escape(first_question.question))
       response.body.should =~ Regexp.new(Regexp.escape(second_question.question))
     end
+
+    it 'unset the current question when the quiz has finished' do
+      question = Factory(:question)
+      session[:current_question_id] = question.id
+
+      get :answers
+
+      session[:current_question_id].should be_nil
+    end
   end
 end

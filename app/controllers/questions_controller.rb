@@ -2,6 +2,10 @@ class QuestionsController < ApplicationController
 
   respond_to :html
 
+  before_filter :only => :answers do
+    session[:current_question_id] = nil
+  end
+
   before_filter :only => [:index, :answers] do
     @questions = Question.all
     respond_with(@questions)
