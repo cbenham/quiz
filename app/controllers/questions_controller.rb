@@ -24,6 +24,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    session[:current_question] = @question.id
     respond_with(@question)
   end
 end

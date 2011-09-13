@@ -15,11 +15,13 @@ describe HomeController do
       @question = Factory(:question)
     end
 
-    it 'set the current question' do
+    it 'set unset the current question' do
+       session[:current_question] = @question.id
+
       get :start
 
       response.should redirect_to(:controller => :questions, :action => :show, :id => @question.id)
-      session[:current_question].should eql(@question)
+      session[:current_question].should be_nil
     end
 
     it 'clear all registered answers' do

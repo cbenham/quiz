@@ -12,18 +12,20 @@ class TwilioResponsesController < ApplicationController
   private
 
   def current_question
-    session[:current_question]
+    id = session[:current_question]
+    Question.find(id) if id
   end
 
   def save_answer
     @number = Number.find_or_create_by_number(:number => params[:From])
-    idempotently_delete_current_response_for_number(current_question)
+    idempotently_delete_current_response_for_number
     save_number_to_answer
   end
 
-  def idempotently_delete_current_response_for_number(current_question)
-    current_question.answers.find_each { |answer| answer.numbers.destroy(@number) } if
-        current_question.numbers.find_by_id(@number)
+  def idempotently_delete_current_response_for_number
+    question = current_question
+    question.answers.find_each { |answer| answer.numbers.destroy(@number) } if
+        question.numbers.find_by_id(@number)
   end
 
   def save_number_to_answer

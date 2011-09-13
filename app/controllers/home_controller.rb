@@ -6,7 +6,8 @@ class HomeController < ApplicationController
 
   def start
     Question.clear_contestant_answers
-    redirect_to question_path(session[:current_question] = Question.first)
+    session[:current_question] = nil
+    redirect_to question_path(Question.first)
   end
 
 end

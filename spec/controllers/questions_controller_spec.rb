@@ -75,6 +75,14 @@ describe QuestionsController do
       (1..4).each { |answer| response.body.should have_selector("li:contains('#{answer}')") }
     end
 
+    it 'set the current question when showing the question' do
+      question = Factory(:question)
+
+      get :show, :id => question.id
+
+      session[:current_question].should eql(question.id)
+    end
+
     it 'render a link to the answers when the current question is the last' do
       question = Factory(:question)
 
