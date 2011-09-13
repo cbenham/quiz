@@ -123,8 +123,9 @@ describe QuestionsController do
     end
 
     it 'inform winners when the quiz has finished' do
-      Number.expects(:send_contestant_results)
-
+      adjudication = mock()
+      Adjudication.expects(:score).returns(adjudication)
+      adjudication.expects(:notify_contestants)
       get :answers
     end
   end

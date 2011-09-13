@@ -16,7 +16,7 @@ class QuestionsController < ApplicationController
   def answers
     CurrentQuestion.unmark
     @questions = Question.all
-    Number.send_contestant_results
+    Adjudication.score.notify_contestants
     respond_with(@questions)
   end
 
