@@ -7,7 +7,7 @@ require 'open3'
 
 ENV['PERCENT_EXPECTED_COVERAGE'] = '100'
 CODE_DUPLICATION_TOLERANCE = 0
-TOLERATED_FLOG_PAIN_LEVEL = 205
+TOLERATED_FLOG_PAIN_LEVEL = 210
 
 COVERAGE_DATA_LOCATION = File.join(Rails.root, 'coverage.data')
 COVERAGE_REPORT_LOCATION = File.join(Rails.root, 'tmp', 'coverage')

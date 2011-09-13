@@ -94,7 +94,6 @@ GEM
     mocha (0.10.0)
       metaclass (~> 0.0.1)
     multi_json (1.0.3)
-    mysql2 (0.3.7)
     nokogiri (1.5.0)
     pg (0.11.0)
     polyglot (0.3.2)
@@ -198,7 +197,6 @@ DEPENDENCIES
   flog
   haml
   mocha
-  mysql2
   pg
   rails
   rails_best_practices

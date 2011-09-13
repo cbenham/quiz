@@ -4,6 +4,10 @@ class Adjudication
   ACCOUNT_SID = ''
   AUTH_TOKEN = ''
 
+  WINNER_PERSONALISATION = "Congratulations! You are winner %s, present this message to claim your prize."
+  LOSER_PERSONALISATION = 'Sorry, you did not win.'
+  BODY = "Thanks for playing! %s You got %s of %s questions correct."
+
   attr_reader :results
 
   def initialize(results)
@@ -33,15 +37,14 @@ class Adjudication
 
     @question_count ||= Question.count
 
-    text = "Thanks for playing! #{personalised_message} You got #{questions_correct} of #{@question_count} questions correct."
+    text = BODY % [personalised_message, questions_correct, @question_count]
     @message.create(:from => FROM, :to => number, :body => text)
   end
 
   def notify_first_winner_with_highest_score(winner_number)
     @results.each do |number, number_of_wins|
       if number_of_wins == @results.values.max
-        send_message(number, number_of_wins,
-                     "Congratulations! You are winner #{winner_number}, present this message to claim your prize.")
+        send_message(number, number_of_wins, WINNER_PERSONALISATION % winner_number)
         @results.delete(number)
         break
       end
@@ -56,7 +59,7 @@ class Adjudication
 
   def notify_losers
     #Method name meant in jest only
-    @results.each { |number, questions_correct| send_message(number, questions_correct, 'Sorry, you did not win.') }
+    @results.each { |number, questions_correct| send_message(number, questions_correct, LOSER_PERSONALISATION) }
   end
 
   def self.initialize_results

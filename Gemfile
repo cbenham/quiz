@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 
 gem 'rails'
-gem 'mysql2'
 gem 'haml'
 gem 'pg'
 gem 'twilio-ruby'
