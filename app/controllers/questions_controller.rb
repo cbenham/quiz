@@ -2,19 +2,21 @@ class QuestionsController < ApplicationController
 
   respond_to :html
 
-  before_filter :only => :answers do
-    CurrentQuestion.unmark
-  end
-
-  before_filter :only => [:index, :answers] do
-    @questions = Question.all
-    respond_with(@questions)
-  end
-
   def new
     @question = Question.new
     4.times { @question.answers.build }
     respond_with @question
+  end
+
+  def index
+    @questions = Question.all
+    respond_with(@questions)
+  end
+
+  def answers
+    CurrentQuestion.unmark
+    @questions = Question.all
+    respond_with(@questions)
   end
 
   def create

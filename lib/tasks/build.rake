@@ -7,13 +7,13 @@ require 'open3'
 
 ENV['PERCENT_EXPECTED_COVERAGE'] = '100'
 CODE_DUPLICATION_TOLERANCE = 0
-TOLERATED_FLOG_PAIN_LEVEL = 150
+TOLERATED_FLOG_PAIN_LEVEL = 155
 
 COVERAGE_DATA_LOCATION = File.join(Rails.root, 'coverage.data')
 COVERAGE_REPORT_LOCATION = File.join(Rails.root, 'tmp', 'coverage')
 
 desc 'Run all aspects required to be sure of a working code base'
-task :all => ['clean', 'flay', 'flog', 'rails_best_practices', 'reek:production', 'reek:spec', 'churn',
+task :all => ['clean', 'churn', 'flay', 'flog', 'rails_best_practices', 'reek:production', 'reek:spec',
               'enable_simplecov', 'spec']
 
 namespace :reek do
