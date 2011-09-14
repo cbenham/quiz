@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
 
-  NUMBER_OF_WINNERS = 3
+  NUMBER_OF_WINNERS = 1
 
   respond_to :html
 
