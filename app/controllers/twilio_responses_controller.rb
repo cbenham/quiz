@@ -29,7 +29,7 @@ class TwilioResponsesController < ApplicationController
     Rails.logger.info("Current question is: #{CurrentQuestion.current.inspect}")
     Rails.logger.info("Current answers are: #{CurrentQuestion.current.answers.inspect}")
     Rails.logger.info("Body: #{clean_answer}")
-    answer = CurrentQuestion.current.answers.find_by_answer(clean_answer)
+    answer = CurrentQuestion.current.answers.find_by_position(clean_answer)
     Rails.logger.info("Selected answer is: #{answer}")
     if answer
       answer.numbers << @number
