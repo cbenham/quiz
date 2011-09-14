@@ -1,8 +1,8 @@
 class Adjudication
 
-  FROM = ''
-  ACCOUNT_SID = ''
-  AUTH_TOKEN = ''
+  FROM = '+13475355118'
+  ACCOUNT_SID = 'ACd3b46014d5d10d5512ebf2c1cb816678'
+  AUTH_TOKEN = 'b0eba7f9335b0da1cf8b69f3fdba7f17'
 
   WINNER_PERSONALISATION = "Congratulations! You are winner %s, present this message to claim your prize."
   LOSER_PERSONALISATION = 'Sorry, you did not win.'
