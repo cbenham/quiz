@@ -2,6 +2,10 @@
 IrresponsibleModule:
   enabled: false
 
+FeatureEnvy:
+  exclude:
+  - Adjudication#extract_highest_scoring_numbers
+
 ControlCouple:
   exclude:
   - CurrentQuestion#self.mark

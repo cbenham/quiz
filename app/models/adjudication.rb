@@ -41,13 +41,18 @@ class Adjudication
     @message.create(:from => FROM, :to => number, :body => text)
   end
 
-  def notify_first_winner_with_highest_score(winner_number)
-    @results.each do |number, number_of_wins|
-      if number_of_wins == @results.values.max
-        send_message(number, number_of_wins, WINNER_PERSONALISATION % winner_number)
-        @results.delete(number)
-        break
-      end
+  def notify_first_winner_with_highest_score(number_of_winners)
+    number_of_wins = @results.values.max
+    if number = extract_highest_scoring_numbers(number_of_wins).first
+      send_message(number, number_of_wins, WINNER_PERSONALISATION % number_of_winners)
+      @results.delete(number)
+    end
+  end
+
+  def extract_highest_scoring_numbers(number_of_wins)
+    @results.inject([]) do |numbers, pair|
+      numbers << pair.first if pair.last == number_of_wins
+      numbers
     end
   end
 
