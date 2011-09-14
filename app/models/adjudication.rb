@@ -43,7 +43,7 @@ class Adjudication
 
   def notify_first_winner_with_highest_score(number_of_winners)
     number_of_wins = @results.values.max
-    if number = extract_highest_scoring_numbers(number_of_wins).first
+    if number = extract_highest_scoring_numbers(number_of_wins).sort_by {rand}.first
       send_message(number, number_of_wins, WINNER_PERSONALISATION % number_of_winners)
       @results.delete(number)
     end

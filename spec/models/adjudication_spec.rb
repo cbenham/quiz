@@ -99,6 +99,27 @@ describe Adjudication do
 
       @adjudication.notify_contestants(2)
     end
+
+    it 'should assign prizes to the contestants with the highest scores' do
+      @adjudication.expects(:rand).returns(0).times(5)
+
+      Question.expects(:count).returns(3)
+
+      @results.merge!('1' => 3, '2' => 3, '3' => 2, '4' => 2, '5' => 1)
+
+      @twilio_mock.expects(:create).with(has_entries(:to => '1',
+                                  :body => "Congratulations! You are winner 1, present this message to claim your prize. You got 3 of 3 questions correct. Thanks for coming to see my talk!"))
+      @twilio_mock.expects(:create).with(has_entries(:to => '2',
+                                  :body => "Congratulations! You are winner 2, present this message to claim your prize. You got 3 of 3 questions correct. Thanks for coming to see my talk!"))
+      @twilio_mock.expects(:create).with(has_entries(:to => '3',
+                                  :body => "Congratulations! You are winner 3, present this message to claim your prize. You got 2 of 3 questions correct. Thanks for coming to see my talk!"))
+      @twilio_mock.expects(:create).with(has_entries(:to => '4',
+                                  :body => "Sorry, you did not win. You got 2 of 3 questions correct. Thanks for coming to see my talk!"))
+      @twilio_mock.expects(:create).with(has_entries(:to => '5',
+                                  :body => "Sorry, you did not win. You got 1 of 3 questions correct. Thanks for coming to see my talk!"))
+
+      @adjudication.notify_contestants(3)
+    end
   end
 
 end
