@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :question do
-    question '1 + 3 = ?'
+    question '10 + 3 = ?'
     after_build do |question|
-      question.answers = 4.times.collect do |i |
-        Factory.build(:answer, :answer => i + 1, :position => i + 1)
+      question.answers = 4.times.collect do |i|
+        Factory.build(:answer, :answer => [10, 11, 12, 13][i], :position => i + 1)
       end if question.answers.empty?
       question.user_choice = 3 unless question.user_choice
       question.choice = question.answers.last unless question.choice

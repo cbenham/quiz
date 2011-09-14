@@ -26,7 +26,7 @@ class TwilioResponsesController < ApplicationController
   end
 
   def save_number_to_answer
-    if answer = CurrentQuestion.current.answers.find_by_answer(clean_answer)
+    if answer = CurrentQuestion.current.answers.find_by_position(clean_answer)
       answer.numbers << @number
     else
       @response_message = 'Answer not recognized, you may try again'

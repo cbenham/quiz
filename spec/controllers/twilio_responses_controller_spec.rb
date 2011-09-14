@@ -18,7 +18,7 @@ describe TwilioResponsesController do
       number.number.should eql('1234567890')
       number.answers.should eql([@question.answers.first])
 
-      @question.answers.find_by_answer('1').numbers.should eql([number])
+      @question.answers.find_by_answer('10').numbers.should eql([number])
 
       response.body.should have_empty_twilio_response
     end
@@ -33,7 +33,7 @@ describe TwilioResponsesController do
       number.number.should eql('1234567890')
       number.answers.should eql([@question.answers.first])
 
-      @question.answers.find_by_answer('1').numbers.should eql([number])
+      @question.answers.find_by_answer('10').numbers.should eql([number])
 
       response.body.should have_empty_twilio_response
     end
@@ -50,7 +50,7 @@ describe TwilioResponsesController do
     describe 'and answer' do
 
       before(:each) do
-        @existing_number = @question.answers.find_by_answer('1').numbers.create(:number => '1234567890')
+        @existing_number = @question.answers.find_by_answer('10').numbers.create(:number => '1234567890')
       end
 
       it 'should allow contestant to amend their response' do
@@ -61,8 +61,8 @@ describe TwilioResponsesController do
         response.body.should have_empty_twilio_response
 
         @existing_number.should eql(Number.find_by_id(@existing_number.id))
-        @question.answers.find_by_answer('1').numbers.should be_empty
-        @question.answers.find_by_answer('2').numbers.should eql([@existing_number])
+        @question.answers.find_by_answer('10').numbers.should be_empty
+        @question.answers.find_by_answer('11').numbers.should eql([@existing_number])
       end
 
       it 'should allow multiple contestants to answer' do
@@ -74,8 +74,8 @@ describe TwilioResponsesController do
 
         response.body.should have_empty_twilio_response
 
-        @question.answers.find_by_answer('1').numbers.should eql([@existing_number])
-        @question.answers.find_by_answer('3').numbers.should eql([Number.find_by_number(number)])
+        @question.answers.find_by_answer('10').numbers.should eql([@existing_number])
+        @question.answers.find_by_answer('12').numbers.should eql([Number.find_by_number(number)])
       end
     end
   end

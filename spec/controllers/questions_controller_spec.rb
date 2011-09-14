@@ -72,7 +72,7 @@ describe QuestionsController do
 
       get :show, :id => question.id
 
-      (1..4).each { |answer| response.body.should have_selector("li:contains('#{answer}')") }
+      (10..13).each { |answer| response.body.should have_selector("li:contains('#{answer}')") }
     end
 
     it 'set the current question when showing the question' do
