@@ -190,20 +190,20 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  churn
-  cucumber-rails
-  factory_girl
-  flay
-  flog
-  haml
-  mocha
-  pg
-  rails
-  rails_best_practices
-  reek
-  rspec-rails
-  shoulda-matchers
+  churn (= 0.0.4)
+  cucumber-rails (= 1.0.2)
+  factory_girl (= 2.0.5)
+  flay (= 1.4.3)
+  flog (= 2.5.2)
+  haml (= 3.1.2)
+  mocha (= 0.10.0)
+  pg (= 0.11.0)
+  rails (= 3.1.0)
+  rails_best_practices (= 0.10.1)
+  reek (= 1.2.8)
+  rspec-rails (= 2.6.1)
+  shoulda-matchers (= 1.0.0.beta3)
   simplecov (>= 0.4.0)
-  spork
-  timecop
-  twilio-ruby
+  spork (= 0.8.5)
+  timecop (= 0.3.5)
+  twilio-ruby (= 3.3.1)
