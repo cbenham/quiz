@@ -5,7 +5,7 @@ FactoryGirl.define do
       question.answers = 4.times.collect do |i|
         Factory.build(:answer, :answer => [10, 11, 12, 13][i], :position => i + 1)
       end if question.answers.empty?
-      question.user_choice = 3 unless question.user_choice
+      question.correct_choice = 3 unless question.correct_choice
       question.choice = question.answers.last unless question.choice
     end
   end

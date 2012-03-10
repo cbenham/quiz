@@ -9,10 +9,10 @@ describe QuestionsController do
 
     it 'show a list of questions that have been entered' do
       answers = %w{a b c d}.collect { |letter| Factory(:answer, :position => letter, :answer => "Answer: #{letter}") }
-      Factory(:question, :question => "First letter of the alphabet?", :answers => answers, :user_choice => 0)
+      Factory(:question, :question => "First letter of the alphabet?", :answers => answers, :correct_choice => 0)
 
       answers = %w{a b c d}.collect { |letter| Factory(:answer, :position => letter, :answer => "Answer: #{letter}") }
-      Factory(:question, :question => "Second letter of the alphabet?", :answers => answers, :user_choice => 0)
+      Factory(:question, :question => "Second letter of the alphabet?", :answers => answers, :correct_choice => 0)
 
       get :index
 
@@ -54,7 +54,7 @@ describe QuestionsController do
 
     it 'show errors when attempting to create a question without a choice' do
       assert_no_difference('Question.count') { post :create, :question =>
-          CreateQuestionParameterMerge.new.parameters(:user_choice => nil) }
+          CreateQuestionParameterMerge.new.parameters(:correct_choice => nil) }
 
       response.response_code.should eql(400)
       response.body.should =~ /Choice can't be blank/

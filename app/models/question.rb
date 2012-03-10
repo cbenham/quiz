@@ -4,9 +4,9 @@ class Question < ActiveRecord::Base
   belongs_to :choice, :class_name => 'Answer', :foreign_key => :choice_id
 
   accepts_nested_attributes_for :answers
-  attr_accessor :user_choice
+  attr_accessor :correct_choice
 
-  before_validation :copy_user_choice
+  before_validation :copy_correct_choice
 
   validates_presence_of :question
   validates_presence_of :choice
@@ -31,8 +31,7 @@ class Question < ActiveRecord::Base
     errors.add :answers, "Expected exactly 4 answers but found #{number_of_answers}" unless number_of_answers == 4
   end
 
-  def copy_user_choice
-    actual_choice = user_choice
-    self.choice = actual_choice ? answers[actual_choice.to_i] : nil
+  def copy_correct_choice
+    self.choice = answers[correct_choice.to_i] if correct_choice
   end
 end
